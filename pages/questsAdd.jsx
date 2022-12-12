@@ -6,7 +6,7 @@ import  prisma  from "../lib/prisma"
 import { useState } from 'react';
 import axios from 'axios';
 
-
+//page that allos the user to add quests
 export default function Home({getQuests}) {
 
     const [quests, setQuest]  = useState('')
@@ -85,7 +85,7 @@ export default function Home({getQuests}) {
         </div>
     )
 }
-
+// function that renders all the props on the server
 export async function getServerSideProps(context) {
 
     const session = await getSession(context)

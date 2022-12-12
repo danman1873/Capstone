@@ -2,6 +2,8 @@ import prisma from "../../../lib/prisma";
 import { getSession } from "next-auth/react";
 
 
+//API that allows a user to spend their coins
+
 export default async function handler(req, res) {
 
     const session = await getSession({ req });
@@ -14,7 +16,7 @@ export default async function handler(req, res) {
         try {
 
             const userId = req.query.id
-
+//Prisma uses increment that allows for the data that is passed from a function or event to remove coins from the database
             const updatedCoins = await prisma.coins.updateMany({
                 where: { coinId: userId },
                 data: {

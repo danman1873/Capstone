@@ -2,6 +2,8 @@ import prisma from "../../../lib/prisma";
 import { getSession } from "next-auth/react";
 
 
+//API that allows a user to add coins based on what quests they turn in
+
 export default async function handler(req, res) {
 
     const session = await getSession({ req });
@@ -14,7 +16,7 @@ export default async function handler(req, res) {
         try {
 
             const userId = req.query.id
-
+// increment from prisma allows for the data that is passsed to increment the amount of the coins in the database
             const updatedCoins = await prisma.coins.updateMany({
                 where: { coinId: userId },
                 data: {

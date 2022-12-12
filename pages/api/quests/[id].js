@@ -1,6 +1,8 @@
 import prisma from "../../../lib/prisma";
 import { getSession } from "next-auth/react";
 
+//API that allows a user to use their specific ID to delete a quest
+
 export default async function handler(req, res) {
 
     const session = await getSession({ req });

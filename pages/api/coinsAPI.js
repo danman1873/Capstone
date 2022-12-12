@@ -1,6 +1,8 @@
 import prisma from '../../lib/prisma'
 import { getSession } from 'next-auth/react';
 
+//API that allows a user to get their coins they have accumulated
+
 export default async function handler(req, res) {
     const session = await getSession({ req })
     if (!session) {

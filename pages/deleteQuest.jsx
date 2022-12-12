@@ -5,6 +5,8 @@ import { signOut, getSession, useSession } from "next-auth/react"
 import  prisma  from "../lib/prisma"
 import Link from 'next/link';
 
+//page that allows the user to delte quests
+
 export default function Home({getQuests}) {
 
 async function questDelete(id) {
@@ -28,7 +30,7 @@ async function questDelete(id) {
                     </a>
                 </div>
                 <div className=" flex justify-end">
-                    <button className=" justify-items-center btn btn-ghost normal-case text-xl" onClick={() => signOut({ callbackUrl: 'http://localhost:3000' })}>Sign Out</button>
+                    <button className=" justify-items-center btn btn-ghost normal-case text-xl" onClick={() => signOut({ callbackUrl: 'https://irpquest.vercel.app' })}>Sign Out</button>
                 </div>
             </div>
             <div className="navbar bg-primary flex justify-center">
@@ -85,7 +87,7 @@ async function questDelete(id) {
         </div>
     )
 }
-
+// function that renders all the props on the server
 export async function getServerSideProps(context) {
 
     const session = await getSession(context)

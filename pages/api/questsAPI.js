@@ -1,7 +1,7 @@
 import prisma from '../../lib/prisma';
 import { getSession } from 'next-auth/react';
 
-
+//API that allows a user to get their quests
 export default async function handler(req, res) {
     const session = await getSession({ req })
     if (!session) {

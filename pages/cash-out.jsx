@@ -5,6 +5,8 @@ import { signOut, getSession, useSession } from "next-auth/react"
 import prisma from "../lib/prisma"
 import { useState } from 'react';
 
+//page for the user to get a reward and subtract the cost from their coins they have accumulated
+
 export default function Home({ getCoins, getRewards, prismaUser }) {
 
 
@@ -37,7 +39,7 @@ export default function Home({ getCoins, getRewards, prismaUser }) {
                     </a>
                 </div>
                 <div className=" flex justify-end">
-                    <button className=" justify-items-center btn btn-ghost normal-case text-xl" onClick={() => signOut({ callbackUrl: 'http://localhost:3000' })}>Sign Out</button>
+                    <button className=" justify-items-center btn btn-ghost normal-case text-xl" onClick={() => signOut({ callbackUrl: 'https://irpquest.vercel.app' })}>Sign Out</button>
                 </div>
             </div>
             <div className="navbar bg-primary flex justify-center">
@@ -98,7 +100,7 @@ export default function Home({ getCoins, getRewards, prismaUser }) {
         </div>
     )
 }
-
+// function that renders all the props on the server
 export async function getServerSideProps(context) {
 
     const session = await getSession(context)

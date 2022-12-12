@@ -5,7 +5,7 @@ import { signOut, getSession, useSession } from "next-auth/react"
 import  prisma  from "../lib/prisma"
 import Link from 'next/link';
 
-
+// page that shows a user's quests
 export default function Home({getQuests}) {
 
     const {data: session} = useSession()
@@ -75,7 +75,7 @@ export default function Home({getQuests}) {
         </div>
     )
 }
-
+// function that renders all the props on the server
 export async function getServerSideProps(context) {
 
     const session = await getSession(context)

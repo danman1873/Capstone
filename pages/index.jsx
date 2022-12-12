@@ -3,7 +3,7 @@ import React from 'react'
 import Link from 'next/link'
 import {signIn, getProviders, useSession, getSession} from "next-auth/react"
 
-
+//the main login page for the user
 export default function Login({ providers }) {
     const {data: session, status} = useSession();
 
@@ -41,7 +41,7 @@ export default function Login({ providers }) {
         )
     }
 }
-
+// function that renders all the props on the server
 export async function getServerSideProps(context) {
     const providers = await getProviders()
     const session = await getSession(context)

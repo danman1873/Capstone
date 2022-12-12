@@ -6,6 +6,7 @@ import  prisma  from "../lib/prisma"
 import { useState } from 'react';
 import axios from 'axios';
 
+// Page that handles the front end for adding rewards
 
 export default function Home({getRewards}) {
 
@@ -86,7 +87,7 @@ export default function Home({getRewards}) {
         </div>
     )
 }
-
+// function that renders all the props on the server
 export async function getServerSideProps(context) {
 
     const session = await getSession(context)
