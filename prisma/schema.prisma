@@ -3,7 +3,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  engineType = "binary"
 }
 
 datasource db {
@@ -11,35 +10,77 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model userAccount {
-  AccountId Int @id @default(autoincrement())
-  userName String @unique
-  userEmail String @unique
-  userPassword String @unique
-  userCoinTotal userCoins[]
-  userQuestList userQuests[]
-  userRewards userRewards[] 
- }
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String  @map("user_id")
+  type               String
+  provider           String
+  providerAccountId  String  @map("provider_account_id")
+  refresh_token      String?
+  access_token       String?
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?
+  session_state      String?
+  oauth_token_secret String?
+  oauth_token        String?
 
- model userCoins {
-  id Int @id @default(autoincrement())
-  userCoinTotal Int @default(0)
-  user userAccount? @relation(fields: [userId], references: [AccountId])
-  userId Int?
- }
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
- model userQuests {
-  id Int @id @default(autoincrement())
-  quests String
-  questCoinWorth Int @default(0)
-  user userAccount? @relation(fields: [userId], references: [AccountId])
-  userId Int?
- }
+  @@unique([provider, providerAccountId])
+}
 
- model userRewards {
-  id Int @id @default(autoincrement())
-  rewards String
-  rewardCoinCost Int @default(0)
-  user userAccount? @relation(fields: [userId], references: [AccountId])
-  userId Int?
- }
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?   @unique
+  userCoinTotal Coins[]
+  userQuestList Quests[]
+  userRewards   Rewards[]
+  accounts      Account[]
+  sessions      Session[]
+  @@map(name: "users")
+}
+
+model Coins {
+  id        String  @id @default(cuid())
+  coinCount Int
+  user      User?   @relation(fields: [coinId], references: [id])
+  coinId    String
+}
+
+model Quests {
+  id             String  @id @default(cuid())
+  quests         String
+  questCoinWorth Int
+  user           User?   @relation(fields: [questId], references: [id])
+  questId        String
+}
+
+model Rewards {
+  id             String  @id @default(cuid())
+  rewards        String
+  rewardCoinCost Int
+  user           User?   @relation(fields: [rewardId], references: [id])
+  rewardId       String
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
